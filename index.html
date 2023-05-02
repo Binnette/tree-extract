@@ -34,9 +34,11 @@
                         <label for="treeGenus" class="form-label">Genus</label>
                         <input id="treeGenus" class="form-control" type="text" list="datalistGenus" placeholder="Prunus">
                         <datalist id="datalistGenus">
-                            <option>Acer</option>
-                            <option>Aesculus</option>
-                            <option>Agave</option>
+                            <select id="selectGenus" onchange="document.getElementById('treeGenus').val(this.value)">
+                                <option>Acer</option>
+                                <option>Aesculus</option>
+                                <option>Agave</option>
+                            </select>
                         </datalist>
                     </div>
                     <div class="mb-3">

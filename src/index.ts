@@ -123,7 +123,7 @@ function loadDataList(url: string, dataListId: string) {
         });
 }
 
-loadDataList('data/genus.json', 'datalistGenus');
+loadDataList('data/genus.json', 'selectGenus');
 loadDataList('data/species.json', 'datalistSpecies');
 
 const iconSize = new Point(40, 48);
