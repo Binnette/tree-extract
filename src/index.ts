@@ -112,16 +112,14 @@ function loadDataList(url: string, dataListId: string) {
     fetch(url)
         .then(response => response.json())
         .then(values => {
-            const dataList = document.createElement('datalist');
-            dataList.id = dataListId;
+            const dataList = document.getElementById(dataListId) as HTMLElement;
+            dataList.replaceChildren();
 
             values.forEach((value: string) => {
                 const option = document.createElement('option');
                 option.value = value;
                 dataList.appendChild(option);
             });
-
-            document.body.appendChild(dataList);
         });
 }
 
