@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Leaflet Map with TypeScript</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        integrity="sha256-wLz3iY/cO4e6vKZ4zRmo4+9XDpMcgKOvv/zEU3OMlRo=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-overpass-layer@2.9.0/dist/OverPassLayer.css"
+        integrity="sha256-uiNFw/kWfsTwgaHZDDipam8QDRMrTkO0qP5qSB3XBik=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.css"
+        integrity="sha256-b1FUshftUDgzY/VtFMamPDs0o3GER52S9Tk8IK+wOoE=" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <!-- Modal Tree Search -->
+    <div id="modalTreeSearch" class="modal modalTreeSearch" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Search for trees</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <h4>Select a genus and/or a species</h4>
+
+                    <div class="mb-3">
+                        <label for="treeGenus" class="form-label">Genus</label>
+                        <input id="treeGenus" class="form-control" list="datalistGenus" placeholder="Prunus">
+                    </div>
+                    <div class="mb-3">
+                        <label for="treeSpecies" class="form-label">Species</label>
+                        <input id="treeSpecies" class="form-control" list="datalistSpecies" placeholder="Prunus avium">
+                    </div>
+
+                    <div id="treeSearchAlert" class="alert alert-danger d-none" role="alert">
+                        Please choose a genus and/or a species.
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="btnSearch" type="button" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Tree Search -->
+    <div id="modalTreeExport" class="modal modalTreeExport" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Export trees to OsmAnd fav GPX</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <h4>Select OsmAnd options</h4>
+
+                    <div class="mb-3">
+                        <label class="form-label">Icon background shape</label>
+                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" class="btn-check" name="btnradio" id="btnRadioCircle" autocomplete="off"
+                                checked>
+                            <label class="btn btn-outline-primary" for="btnRadioCircle">🔴 Circle</label>
+
+                            <input type="radio" class="btn-check" name="btnradio" id="btnRadioSquare"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnRadioSquare">🟥 Square</label>
+
+                            <input type="radio" class="btn-check" name="btnradio" id="btnRadioOctogon"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnRadioOctogon">🛑 Octogon</label>
+                        </div>
+                    </div>
+
+                    <label for="exampleColorInput" class="form-label">Icon color</label>
+                    <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#5fc33b"
+                        title="Choose your color">
+
+                    <div id="treeSearchAlert" class="alert alert-danger d-none" role="alert">
+                        Please choose a genus and/or a species.
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="btnExport" type="button" class="btn btn-primary">Export</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3"> 
+        <div id="toastNoData" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                ⚠️
+                &nbsp;
+                <strong class="me-auto">No trees to export</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                First search trees by clicking on the 🌲 button.
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha256-lSABj6XYH05NydBq+1dvkMu6uiCc/MbLYOFGRkf3iQs=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.js"
+        integrity="sha256-jVdNHjjOOJMoykxLOdGxOUzGJDlmr8MM6sFF++b1/sI=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet-overpass-layer@2.9.0/dist/OverPassLayer.bundle.js"
+        integrity="sha256-hw6ctMBhF9nOCIfjFvfDl7NjkFI9LHhBFi0JZU0UREQ=" crossorigin="anonymous"></script>
+    <script src="js/bundle.js"></script>
+
+</body>
+
+</html>
