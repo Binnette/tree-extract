@@ -130,7 +130,7 @@ loadDataList('data/species.json', 'datalistSpecies');
 
 const iconSize = new Point(40, 48);
 const treeIcon = new Icon({
-    iconUrl: '/img/tree.svg',
+    iconUrl: 'img/tree.svg',
     iconSize: iconSize,
     iconAnchor: [iconSize.x / 2, iconSize.y],
     popupAnchor: [0, iconSize.y * -1]
