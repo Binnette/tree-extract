@@ -33,10 +33,16 @@
                     <div class="mb-3">
                         <label for="treeGenus" class="form-label">Genus</label>
                         <input id="treeGenus" class="form-control" type="text" list="datalistGenus" placeholder="Prunus">
+                        <datalist id="datalistGenus">
+                            <option>Acer</option>
+                            <option>Aesculus</option>
+                            <option>Agave</option>
+                        </datalist>
                     </div>
                     <div class="mb-3">
                         <label for="treeSpecies" class="form-label">Species</label>
                         <input id="treeSpecies" class="form-control" type="text" list="datalistSpecies" placeholder="Prunus avium">
+                        <datalist id="datalistSpecies"></datalist>
                     </div>
 
                     <div id="treeSearchAlert" class="alert alert-danger d-none" role="alert">
@@ -123,14 +129,6 @@
     <script src="https://unpkg.com/leaflet-overpass-layer@2.9.0/dist/OverPassLayer.bundle.js"
         integrity="sha256-hw6ctMBhF9nOCIfjFvfDl7NjkFI9LHhBFi0JZU0UREQ=" crossorigin="anonymous"></script>
     <script src="js/bundle.js"></script>
-
-    <datalist id="datalistGenus">
-        <option>Acer</option>
-        <option>Aesculus</option>
-        <option>Agave</option>
-    </datalist>
-
-    <datalist id="datalistSpecies"></datalist>
 
 </body>
 
