@@ -26,36 +26,45 @@
                     <h5 class="modal-title">Search for trees</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <form id="formTreeSearch">
+                    <div class="modal-body">
 
-                    <h4>Select a genus and/or a species</h4>
+                        <h4>Use a shortcut…</h4>
 
-                    <div class="mb-3">
-                        <label for="treeGenus" class="form-label">Genus</label>
-                        <input id="treeGenus" class="form-control" type="text" list="datalistGenus" placeholder="Prunus">
-                        <datalist id="datalistGenus">
-                            <select id="selectGenus" onchange="document.getElementById('treeGenus').val(this.value)">
-                                <option>Acer</option>
-                                <option>Aesculus</option>
-                                <option>Agave</option>
-                            </select>
-                        </datalist>
+                        <div id="shortcuts" class="mb-3"></div>
+
+                        <h4>…Or set a genus and/or a species</h4>
+
+                        <div class="mb-3">
+                            <label for="treeGenus" class="form-label">Genus</label>
+                            <input id="treeGenus" class="form-control" type="text" list="datalistGenus"
+                                placeholder="Prunus">
+                            <datalist id="datalistGenus">
+                                <select id="selectGenus"
+                                    onchange="document.getElementById('treeGenus').val(this.value)">
+                                    <option>Acer</option>
+                                    <option>Aesculus</option>
+                                    <option>Agave</option>
+                                </select>
+                            </datalist>
+                        </div>
+                        <div class="mb-3">
+                            <label for="treeSpecies" class="form-label">Species</label>
+                            <input id="treeSpecies" class="form-control" type="text" list="datalistSpecies"
+                                placeholder="Prunus avium">
+                            <datalist id="datalistSpecies"></datalist>
+                        </div>
+
+                        <div id="treeSearchAlert" class="alert alert-danger d-none" role="alert">
+                            Please choose a genus and/or a species.
+                        </div>
+
                     </div>
-                    <div class="mb-3">
-                        <label for="treeSpecies" class="form-label">Species</label>
-                        <input id="treeSpecies" class="form-control" type="text" list="datalistSpecies" placeholder="Prunus avium">
-                        <datalist id="datalistSpecies"></datalist>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="btnSearch" type="button" class="btn btn-primary">Search</button>
                     </div>
-
-                    <div id="treeSearchAlert" class="alert alert-danger d-none" role="alert">
-                        Please choose a genus and/or a species.
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button id="btnSearch" type="button" class="btn btn-primary">Search</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -69,46 +78,44 @@
                     <h5 class="modal-title">Export trees to OsmAnd fav GPX</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <form id="formTreeExport">
+                    <div class="modal-body">
 
-                    <h4>Select OsmAnd options</h4>
+                        <h4>Select OsmAnd options</h4>
 
-                    <div class="mb-3">
-                        <label class="form-label">Icon background shape</label>
-                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" class="btn-check" name="btnradio" id="btnRadioCircle" autocomplete="off"
-                                checked>
-                            <label class="btn btn-outline-primary" for="btnRadioCircle">🔴 Circle</label>
+                        <div class="mb-3">
+                            <label class="form-label">Icon background shape</label>
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check" name="radioBackground" id="btnRadioCircle"
+                                    autocomplete="off" value="circle" checked>
+                                <label class="btn btn-outline-primary" for="btnRadioCircle">🔴 Circle</label>
 
-                            <input type="radio" class="btn-check" name="btnradio" id="btnRadioSquare"
-                                autocomplete="off">
-                            <label class="btn btn-outline-primary" for="btnRadioSquare">🟥 Square</label>
+                                <input type="radio" class="btn-check" name="radioBackground" id="btnRadioSquare"
+                                    autocomplete="off" value="square">
+                                <label class="btn btn-outline-primary" for="btnRadioSquare">🟥 Square</label>
 
-                            <input type="radio" class="btn-check" name="btnradio" id="btnRadioOctogon"
-                                autocomplete="off">
-                            <label class="btn btn-outline-primary" for="btnRadioOctogon">🛑 Octogon</label>
+                                <input type="radio" class="btn-check" name="radioBackground" id="btnRadioOctagon"
+                                    autocomplete="off" value="octagon">
+                                <label class="btn btn-outline-primary" for="btnRadioOctagon">🛑 Octagon</label>
+                            </div>
                         </div>
+
+                        <label for="colorIcon" class="form-label">Icon color</label>
+                        <input type="color" class="form-control form-control-color" id="inputColor"
+                            value="#5fc33b" title="Choose your color">
+
                     </div>
-
-                    <label for="exampleColorInput" class="form-label">Icon color</label>
-                    <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#5fc33b"
-                        title="Choose your color">
-
-                    <div id="treeSearchAlert" class="alert alert-danger d-none" role="alert">
-                        Please choose a genus and/or a species.
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="btnExport" type="button" class="btn btn-primary">Export</button>
                     </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button id="btnExport" type="button" class="btn btn-primary">Export</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 
     <!-- Toast -->
-    <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3"> 
+    <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
         <div id="toastNoData" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
                 ⚠️

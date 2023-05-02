@@ -30,8 +30,57 @@ speciesInput.value = '';
 const btnSearch = document.getElementById('btnSearch') as HTMLButtonElement;
 const treeSearchAlert = document.getElementById('treeSearchAlert') as HTMLElement;
 const btnExport = document.getElementById('btnExport') as HTMLButtonElement;
-const toastNoDataElt = document.getElementById('toastNoData');
 const toastNoData = new Toast('#toastNoData')
+const shortcutsDiv = document.getElementById('shortcuts') as HTMLDivElement;
+
+function setSpecies(species: string) {
+    genusInput.value = '';
+    speciesInput.value = species;
+}
+
+function setGenus(genus: string) {
+    genusInput.value = genus;
+    speciesInput.value = '';
+}
+
+let shortcuts = [
+    {name: '🍒 Cherry soft', species: 'Prunus avium'},
+    {name: '🍒 Cherry acid', species: 'Prunus cerasus'},
+    {name: '🍒 Cherry plum', species: 'Prunus cerasifera'},
+    {name: '🫐 Plum', species: 'Prunus domestica'},
+    {name: '🍏 Apple', species: 'Malus domestica'},
+    {name: '🍐 Pear', species: 'Pyrus communis'},
+    {name: '🍑 Peach', species: 'Prunus persica'},
+    {name: '🥝 Kiwi', genus: 'Actinidia'},
+    {name: '🥑 Avocado', species: 'Persea americana'},
+    {name: '🫒 Olive', species: 'Olea europaea'},
+    {name: '🍇 Grapes', genus: 'Vitis'},
+    {name: '🍊 Mandarin', species: 'Citrus reticulata'},
+    {name: '🍋 Lemon', species: 'Citrus limon'},
+    {name: '🍌 Banana', species: 'Musa acuminata'},
+    {name: '🍍 Pineapple', species: 'Hananas comosus'},
+    {name: '🥭 Mango', species: 'Mangifera indica'},
+    {name: '🥥 Coconut', species: 'Cocos nucifera'},
+];
+
+shortcuts.forEach(e => {
+    const button = document.createElement('button') as HTMLButtonElement;
+    button.type = 'button';
+    button.className = 'btn btn-outline-primary';
+    button.textContent = e.name;
+    if (e.species) {
+        button.value = e.species;
+        button.onclick = () => { setSpecies(button.value); };
+    }
+
+    if (e.genus) {
+        button.value = e.genus;
+        button.onclick = () => { setGenus(button.value); };
+    }
+
+    shortcutsDiv.appendChild(button);
+    shortcutsDiv.append(' ');
+});
 
 btnSearch.onclick = () => {
     treeSearchAlert.classList.toggle('d-none', true);
@@ -158,10 +207,19 @@ treeButton.onAdd = function () {
 map.addControl(treeButton);
 
 btnExport.onclick = () => {
-
     const icon = 'nature_reserve';
-    const background = 'circle';
-    const color = '#5fc33b';
+
+    let background = 'circle';
+    const radioBackground = document.querySelector('input[name="radioBackground"]:checked') as HTMLInputElement;
+    if (radioBackground) {
+        background = radioBackground.value;
+    }
+    
+    let color = '#5fc33b';
+    const inputColor = document.getElementById("inputColor") as HTMLInputElement;
+    if (inputColor) {
+        color = inputColor.value;
+    } 
 
     const metadataName = [genus, species].filter(Boolean).join(' / ');   
     const xmlDoc = document.implementation.createDocument(null, 'gpx');
