@@ -20,7 +20,7 @@
 
     <!-- Modal Tree Search -->
     <div id="modalTreeSearch" class="modal modalTreeSearch" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Search for trees</h5>
@@ -31,28 +31,33 @@
 
                         <h4>Use a shortcut…</h4>
 
-                        <div id="shortcuts" class="mb-3"></div>
+                        <div id="shortcuts" class="mb-3 accordion"></div>
 
                         <h4>…Or set a genus and/or a species</h4>
 
-                        <div class="mb-3">
-                            <label for="treeGenus" class="form-label">Genus</label>
-                            <input id="treeGenus" class="form-control" type="text" list="datalistGenus"
+                        <div class="mb-3 row">
+                            <label for="treeGenus" class="col-sm-2 col-form-label">Genus</label>
+                            <div class="col-sm-10">
+                                <input id="treeGenus" class="form-control" type="text" list="datalistGenus"
                                 placeholder="Prunus">
-                            <datalist id="datalistGenus">
-                                <select id="selectGenus"
-                                    onchange="document.getElementById('treeGenus').val(this.value)">
-                                    <option>Acer</option>
-                                    <option>Aesculus</option>
-                                    <option>Agave</option>
-                                </select>
-                            </datalist>
+                                <datalist id="datalistGenus">
+                                    <select id="selectGenus"
+                                        onchange="document.getElementById('treeGenus').val(this.value)">
+                                        <option>Acer</option>
+                                        <option>Aesculus</option>
+                                        <option>Agave</option>
+                                    </select>
+                                </datalist>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="treeSpecies" class="form-label">Species</label>
-                            <input id="treeSpecies" class="form-control" type="text" list="datalistSpecies"
-                                placeholder="Prunus avium">
-                            <datalist id="datalistSpecies"></datalist>
+                        <div class="mb-3 row">
+                            <label for="treeSpecies" class="col-sm-2 col-form-label">Species</label>
+                            <div class="col-sm-10">
+                                <input id="treeSpecies" class="form-control" type="text" list="datalistSpecies"
+                                    placeholder="Prunus avium">
+                                <datalist id="datalistSpecies"></datalist>
+                            </div>
+
                         </div>
 
                         <div id="treeSearchAlert" class="alert alert-danger d-none" role="alert">
@@ -69,10 +74,9 @@
         </div>
     </div>
 
-
     <!-- Modal Tree Search -->
     <div id="modalTreeExport" class="modal modalTreeExport" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Export trees to OsmAnd fav GPX</h5>
@@ -101,8 +105,8 @@
                         </div>
 
                         <label for="colorIcon" class="form-label">Icon color</label>
-                        <input type="color" class="form-control form-control-color" id="inputColor"
-                            value="#5fc33b" title="Choose your color">
+                        <input type="color" class="form-control form-control-color" id="inputColor" value="#5fc33b"
+                            title="Choose your color">
 
                     </div>
                     <div class="modal-footer">

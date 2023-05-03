@@ -44,42 +44,130 @@ function setGenus(genus: string) {
 }
 
 let shortcuts = [
-    {name: '🍒 Cherry soft', species: 'Prunus avium'},
-    {name: '🍒 Cherry acid', species: 'Prunus cerasus'},
-    {name: '🍒 Cherry plum', species: 'Prunus cerasifera'},
-    {name: '🫐 Plum', species: 'Prunus domestica'},
-    {name: '🍏 Apple', species: 'Malus domestica'},
-    {name: '🍐 Pear', species: 'Pyrus communis'},
-    {name: '🍑 Peach', species: 'Prunus persica'},
-    {name: '🥝 Kiwi', genus: 'Actinidia'},
-    {name: '🥑 Avocado', species: 'Persea americana'},
-    {name: '🫒 Olive', species: 'Olea europaea'},
-    {name: '🍇 Grapes', genus: 'Vitis'},
-    {name: '🍊 Mandarin', species: 'Citrus reticulata'},
-    {name: '🍋 Lemon', species: 'Citrus limon'},
-    {name: '🍌 Banana', species: 'Musa acuminata'},
-    {name: '🍍 Pineapple', species: 'Hananas comosus'},
-    {name: '🥭 Mango', species: 'Mangifera indica'},
-    {name: '🥥 Coconut', species: 'Cocos nucifera'},
+    {
+        category: 'Common',
+        items: [
+            {name: '🍒 Cherry soft', species: 'Prunus avium'},
+            {name: '🍒 Cherry acid', species: 'Prunus cerasus'},
+            {name: '🍒 Cherry plum', species: 'Prunus cerasifera'},
+            {name: '🫐 Plum', species: 'Prunus domestica'},
+            {name: '🍑 Peach', species: 'Prunus persica'},
+            {name: '🍑 Apricot', species: 'Prunus armeniaca'},
+            {name: '🍏 Apple', species: 'Malus domestica'},
+            {name: '🍐 Pear', species: 'Pyrus communis'},
+            {name: '🍐 Quince', species: 'Cydonia oblonga'},
+            {name: '🍑 Kaki persimmon', species: 'Diospyros kaki'},
+            {name: '🍎 Pomegranate', species: 'Punica granatum'},
+            {name: '🥝 Kiwi', genus: 'Actinidia'},
+            {name: '🟣 Fig', species: 'Ficus carica'},
+            {name: '🍇 Grapes', genus: 'Vitis'},
+        ]
+    }, {
+        category: 'Citrus',
+        items: [
+            {name: '🍊 Mandarin', species: 'Citrus reticulata', show: false}, // Too few in OSM
+            {name: '🍊 Clementine', species: 'Citrus × clementina', show: false}, // No tree in OSM
+            {name: '🍊 Orange', species: 'Citrus × sinensis'},
+            {name: '🍋 Lemon', species: 'Citrus × limon'},
+        ]
+    }, {
+        category: 'Tropical',
+        items: [
+            {name: '🍌 Banana', species: 'Musa acuminata', show: false}, // Too few in OSM
+            {name: '🍍 Pineapple', species: 'Hananas comosus'},
+            {name: '🥭 Mango', species: 'Mangifera indica'},
+            {name: '🍈 Papaya', species: 'Carica papaya'},
+            {name: '🥥 Coconut', species: 'Cocos nucifera'},
+            {name: '🏝️ Date', species: 'Phoenix dactylifera'},
+        ]
+    }, {
+        category: 'Berries',
+        items: [
+            {name: '⚫️ Elderberry', species: 'Sambucus nigra'},
+            {name: '⚫️ Mulberry', species: 'Morus nigra'},
+            {name: '🍇 Blackberry', species: 'Rubus fruticosus', show: false}, // Too few in OSM
+            {name: '🔵 Blueberry', species: 'Vaccinium corymbosum', show: false}, // Too few in OSM
+            {name: '🔴 Cranberry', species: 'Vaccinium macrocarpon', show: false}, // Too few in OSM
+            {name: '🔴 Currant', species: 'Ribes rubrum', show: false}, // Too few in OSM
+        ]
+    }, {
+        category: 'Nuts',
+        items: [
+            {name: '🌰 Almonds', species: 'Prunus dulcis'},
+            {name: '🌰 Brazil Nuts', species: 'Bertholletia excelsa', show: false}, // Too few in OSM
+            {name: '🌰 Cashews', species: 'Anacardium occidentale', show: false}, // Too few in OSM
+            {name: '🌰 Chestnuts', species: 'Castanea sativa'},
+            {name: '🌰 Hazelnuts', species: 'Corylus avellana'},
+            {name: '🌰 Pecans', species: 'Carya illinoinensis', show: false}, // Too few in OSM
+            {name: '🌰 Macadamia Nuts', species: 'Macadamia integrifolia', show: false}, // Too few in OSM
+            {name: '🌰 Pistachios', species: 'Pistacia vera', show: false}, // Too few in OSM
+        ]
+    }, {
+        category: 'Others',
+        items: [
+            {name: '🥑 Avocado', species: 'Persea americana'},
+            {name: '🫒 Olive', species: 'Olea europaea'},
+            {name: '💮 Robinia', species: 'Robinia pseudoacacia'},
+        ]
+    }
 ];
 
-shortcuts.forEach(e => {
-    const button = document.createElement('button') as HTMLButtonElement;
-    button.type = 'button';
-    button.className = 'btn btn-outline-primary';
-    button.textContent = e.name;
-    if (e.species) {
-        button.value = e.species;
-        button.onclick = () => { setSpecies(button.value); };
-    }
+shortcuts.forEach(c => {
+    const cat = c.category.replace(/[^a-zA-Z0-9]/g, '');
+    const accordionItem = document.createElement('div');
+    accordionItem.className = 'accordion-item';
+    
+    const accordionHeader = document.createElement('h2');
+    accordionHeader.className = 'accordion-header';
+    accordionHeader.id = 'heading' + cat;
+    
+    const accordionButton = document.createElement('button');
+    accordionButton.className = 'accordion-button collapsed';
+    accordionButton.type = 'button';
+    accordionButton.setAttribute('data-bs-toggle', 'collapse');
+    accordionButton.setAttribute('data-bs-target', '#collapse' + cat);
+    accordionButton.setAttribute('aria-expanded', 'false');
+    accordionButton.setAttribute('aria-controls', 'collapse' + cat);
+    accordionButton.textContent = c.category;
+    
+    const accordionCollapse = document.createElement('div');
+    accordionCollapse.id = 'collapse' + cat;
+    accordionCollapse.className = 'accordion-collapse collapse';
+    accordionCollapse.setAttribute('aria-labelledby', 'heading' + cat);
+    accordionCollapse.setAttribute('data-bs-parent', '#shortcuts');
+    
+    const accordionBody = document.createElement('div');
+    accordionBody.className = 'accordion-body';
+    
+    accordionHeader.appendChild(accordionButton);
+    accordionItem.appendChild(accordionHeader);
+    accordionCollapse.appendChild(accordionBody);
+    accordionItem.appendChild(accordionCollapse);
 
-    if (e.genus) {
-        button.value = e.genus;
-        button.onclick = () => { setGenus(button.value); };
-    }
+    c.items.forEach(e => {
+        if ('show' in e && !e.show) {
+            return;
+        } 
 
-    shortcutsDiv.appendChild(button);
-    shortcutsDiv.append(' ');
+        const button = document.createElement('button') as HTMLButtonElement;
+        button.type = 'button';
+        button.className = 'btn btn-outline-primary';
+        button.textContent = e.name;
+        if ('species' in e && e.species) {
+            button.value = e.species;
+            button.onclick = () => { setSpecies(button.value); };
+        }
+
+        if ('genus' in e && e.genus) {
+            button.value = e.genus;
+            button.onclick = () => { setGenus(button.value); };
+        }
+
+        accordionBody.appendChild(button);
+        accordionBody.append(' ');
+    });
+
+    shortcutsDiv.appendChild(accordionItem);
 });
 
 btnSearch.onclick = () => {
