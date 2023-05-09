@@ -85,6 +85,7 @@ let shortcuts = [
         items: [
             {name: '⚫️ Elderberry', species: 'Sambucus nigra'},
             {name: '⚫️ Mulberry', species: 'Morus nigra'},
+            {name: '🔴 Rowanberry', species: 'Sorbus aucuparia'},
             {name: '🍇 Blackberry', species: 'Rubus fruticosus', show: false}, // Too few in OSM
             {name: '🔵 Blueberry', species: 'Vaccinium corymbosum', show: false}, // Too few in OSM
             {name: '🔴 Cranberry', species: 'Vaccinium macrocarpon', show: false}, // Too few in OSM
