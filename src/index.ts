@@ -397,7 +397,7 @@ btnExport.onclick = () => {
 }
 
 function showModalTreeExport() {
-    if (currentData.length < 0) {
+    if (currentData.length > 0) {
         modalTreeExport.show();
     } else {
         toastNoData.show();
