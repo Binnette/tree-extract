@@ -118,17 +118,28 @@
         </div>
     </div>
 
-    <!-- Toast -->
+    <!-- Toast No Data -->
     <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
         <div id="toastNoData" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
-                ⚠️
-                &nbsp;
-                <strong class="me-auto">No trees to export</strong>
+                <strong class="me-auto">⚠️ No trees to export</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
             <div class="toast-body">
                 First search trees by clicking on the 🌲 button.
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Loaded -->
+    <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
+        <div id="toastLoaded" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">🌲 Trees loaded</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div id="toastTreeCount" class="toast-body">
+                X trees found 🌲
             </div>
         </div>
     </div>

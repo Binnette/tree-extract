@@ -1,4 +1,4 @@
-import { Modal, Toast } from 'bootstrap';
+import { Modal, Toast, Button } from 'bootstrap';
 import { Map, Layer, TileLayer, Control, Point, Icon, DomUtil } from 'leaflet';
 import { saveAs } from 'file-saver';
 import 'leaflet.locatecontrol';
@@ -12,14 +12,17 @@ new TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // Start geolocalisation
-let lc: Control.Locate = new Control.Locate().addTo(map);
+let lc: Control.Locate = new Control.Locate({
+    initialZoomLevel: 13
+}).addTo(map);
 lc.start();
 
 // Globals
 let opl: Layer;
-let currentData: any;
+let currentData: any[] = [];
 let genus: string;
 let species: string;
+const btnTreeSelect: HTMLButtonElement[] = [];
 
 const modalTreeSearch = new Modal('#modalTreeSearch');
 const modalTreeExport = new Modal('#modalTreeExport');
@@ -30,15 +33,23 @@ speciesInput.value = '';
 const btnSearch = document.getElementById('btnSearch') as HTMLButtonElement;
 const treeSearchAlert = document.getElementById('treeSearchAlert') as HTMLElement;
 const btnExport = document.getElementById('btnExport') as HTMLButtonElement;
-const toastNoData = new Toast('#toastNoData')
+const toastNoData = new Toast('#toastNoData');
+const toastLoaded = new Toast('#toastLoaded');
+const toastTreeCount = document.getElementById('toastTreeCount') as HTMLDivElement;
 const shortcutsDiv = document.getElementById('shortcuts') as HTMLDivElement;
 
 function setSpecies(species: string) {
+    btnTreeSelect.forEach((btn) => {
+        btn.classList.toggle('active', btn.value == species);
+    });
     genusInput.value = '';
     speciesInput.value = species;
 }
 
 function setGenus(genus: string) {
+    btnTreeSelect.forEach((btn) => {
+        btn.classList.toggle('active', btn.value == genus);
+    });
     genusInput.value = genus;
     speciesInput.value = '';
 }
@@ -47,68 +58,68 @@ let shortcuts = [
     {
         category: 'Common',
         items: [
-            {name: '🍒 Cherry soft', species: 'Prunus avium'},
-            {name: '🍒 Cherry acid', species: 'Prunus cerasus'},
-            {name: '🍒 Cherry plum', species: 'Prunus cerasifera'},
-            {name: '🫐 Plum', species: 'Prunus domestica'},
-            {name: '🍑 Peach', species: 'Prunus persica'},
-            {name: '🍑 Apricot', species: 'Prunus armeniaca'},
-            {name: '🍏 Apple', species: 'Malus domestica'},
-            {name: '🍐 Pear', species: 'Pyrus communis'},
-            {name: '🍐 Quince', species: 'Cydonia oblonga'},
-            {name: '🍑 Kaki persimmon', species: 'Diospyros kaki'},
-            {name: '🍎 Pomegranate', species: 'Punica granatum'},
-            {name: '🥝 Kiwi', genus: 'Actinidia'},
-            {name: '🟣 Fig', species: 'Ficus carica'},
-            {name: '🍇 Grapes', genus: 'Vitis'},
+            { name: '🍒 Cherry soft', species: 'Prunus avium' },
+            { name: '🍒 Cherry acid', species: 'Prunus cerasus' },
+            { name: '🍒 Cherry plum', species: 'Prunus cerasifera' },
+            { name: '🫐 Plum', species: 'Prunus domestica' },
+            { name: '🍑 Peach', species: 'Prunus persica' },
+            { name: '🍑 Apricot', species: 'Prunus armeniaca' },
+            { name: '🍏 Apple', species: 'Malus domestica' },
+            { name: '🍐 Pear', species: 'Pyrus communis' },
+            { name: '🍐 Quince', species: 'Cydonia oblonga' },
+            { name: '🍑 Kaki persimmon', species: 'Diospyros kaki' },
+            { name: '🍎 Pomegranate', species: 'Punica granatum' },
+            { name: '🥝 Kiwi', genus: 'Actinidia' },
+            { name: '🟣 Fig', species: 'Ficus carica' },
+            { name: '🍇 Grapes', genus: 'Vitis' },
         ]
     }, {
         category: 'Citrus',
         items: [
-            {name: '🍊 Mandarin', species: 'Citrus reticulata', show: false}, // Too few in OSM
-            {name: '🍊 Clementine', species: 'Citrus × clementina', show: false}, // No tree in OSM
-            {name: '🍊 Orange', species: 'Citrus × sinensis'},
-            {name: '🍋 Lemon', species: 'Citrus × limon'},
+            { name: '🍊 Mandarin', species: 'Citrus reticulata', show: false }, // Too few in OSM
+            { name: '🍊 Clementine', species: 'Citrus × clementina', show: false }, // No tree in OSM
+            { name: '🍊 Orange', species: 'Citrus × sinensis' },
+            { name: '🍋 Lemon', species: 'Citrus × limon' },
         ]
     }, {
         category: 'Tropical',
         items: [
-            {name: '🍌 Banana', species: 'Musa acuminata', show: false}, // Too few in OSM
-            {name: '🍍 Pineapple', species: 'Hananas comosus'},
-            {name: '🥭 Mango', species: 'Mangifera indica'},
-            {name: '🍈 Papaya', species: 'Carica papaya'},
-            {name: '🥥 Coconut', species: 'Cocos nucifera'},
-            {name: '🏝️ Date', species: 'Phoenix dactylifera'},
+            { name: '🍌 Banana', species: 'Musa acuminata', show: false }, // Too few in OSM
+            { name: '🍍 Pineapple', species: 'Hananas comosus' },
+            { name: '🥭 Mango', species: 'Mangifera indica' },
+            { name: '🍈 Papaya', species: 'Carica papaya' },
+            { name: '🥥 Coconut', species: 'Cocos nucifera' },
+            { name: '🏝️ Date', species: 'Phoenix dactylifera' },
         ]
     }, {
         category: 'Berries',
         items: [
-            {name: '⚫️ Elderberry', species: 'Sambucus nigra'},
-            {name: '⚫️ Mulberry', species: 'Morus nigra'},
-            {name: '🔴 Rowanberry', species: 'Sorbus aucuparia'},
-            {name: '🍇 Blackberry', species: 'Rubus fruticosus', show: false}, // Too few in OSM
-            {name: '🔵 Blueberry', species: 'Vaccinium corymbosum', show: false}, // Too few in OSM
-            {name: '🔴 Cranberry', species: 'Vaccinium macrocarpon', show: false}, // Too few in OSM
-            {name: '🔴 Currant', species: 'Ribes rubrum', show: false}, // Too few in OSM
+            { name: '⚫️ Elderberry', species: 'Sambucus nigra' },
+            { name: '⚫️ Mulberry', species: 'Morus nigra' },
+            { name: '🔴 Rowanberry', species: 'Sorbus aucuparia' },
+            { name: '🍇 Blackberry', species: 'Rubus fruticosus', show: false }, // Too few in OSM
+            { name: '🔵 Blueberry', species: 'Vaccinium corymbosum', show: false }, // Too few in OSM
+            { name: '🔴 Cranberry', species: 'Vaccinium macrocarpon', show: false }, // Too few in OSM
+            { name: '🔴 Currant', species: 'Ribes rubrum', show: false }, // Too few in OSM
         ]
     }, {
         category: 'Nuts',
         items: [
-            {name: '🌰 Almonds', species: 'Prunus dulcis'},
-            {name: '🌰 Brazil Nuts', species: 'Bertholletia excelsa', show: false}, // Too few in OSM
-            {name: '🌰 Cashews', species: 'Anacardium occidentale', show: false}, // Too few in OSM
-            {name: '🌰 Chestnuts', species: 'Castanea sativa'},
-            {name: '🌰 Hazelnuts', species: 'Corylus avellana'},
-            {name: '🌰 Pecans', species: 'Carya illinoinensis', show: false}, // Too few in OSM
-            {name: '🌰 Macadamia Nuts', species: 'Macadamia integrifolia', show: false}, // Too few in OSM
-            {name: '🌰 Pistachios', species: 'Pistacia vera', show: false}, // Too few in OSM
+            { name: '🌰 Almonds', species: 'Prunus dulcis' },
+            { name: '🌰 Brazil Nuts', species: 'Bertholletia excelsa', show: false }, // Too few in OSM
+            { name: '🌰 Cashews', species: 'Anacardium occidentale', show: false }, // Too few in OSM
+            { name: '🌰 Chestnuts', species: 'Castanea sativa' },
+            { name: '🌰 Hazelnuts', species: 'Corylus avellana' },
+            { name: '🌰 Pecans', species: 'Carya illinoinensis', show: false }, // Too few in OSM
+            { name: '🌰 Macadamia Nuts', species: 'Macadamia integrifolia', show: false }, // Too few in OSM
+            { name: '🌰 Pistachios', species: 'Pistacia vera', show: false }, // Too few in OSM
         ]
     }, {
         category: 'Others',
         items: [
-            {name: '🥑 Avocado', species: 'Persea americana'},
-            {name: '🫒 Olive', species: 'Olea europaea'},
-            {name: '💮 Robinia', species: 'Robinia pseudoacacia'},
+            { name: '🥑 Avocado', species: 'Persea americana' },
+            { name: '🫒 Olive', species: 'Olea europaea' },
+            { name: '💮 Robinia', species: 'Robinia pseudoacacia' },
         ]
     }
 ];
@@ -117,11 +128,11 @@ shortcuts.forEach(c => {
     const cat = c.category.replace(/[^a-zA-Z0-9]/g, '');
     const accordionItem = document.createElement('div');
     accordionItem.className = 'accordion-item';
-    
+
     const accordionHeader = document.createElement('h2');
     accordionHeader.className = 'accordion-header';
     accordionHeader.id = 'heading' + cat;
-    
+
     const accordionButton = document.createElement('button');
     accordionButton.className = 'accordion-button collapsed';
     accordionButton.type = 'button';
@@ -130,16 +141,16 @@ shortcuts.forEach(c => {
     accordionButton.setAttribute('aria-expanded', 'false');
     accordionButton.setAttribute('aria-controls', 'collapse' + cat);
     accordionButton.textContent = c.category;
-    
+
     const accordionCollapse = document.createElement('div');
     accordionCollapse.id = 'collapse' + cat;
     accordionCollapse.className = 'accordion-collapse collapse';
     accordionCollapse.setAttribute('aria-labelledby', 'heading' + cat);
     accordionCollapse.setAttribute('data-bs-parent', '#shortcuts');
-    
+
     const accordionBody = document.createElement('div');
     accordionBody.className = 'accordion-body';
-    
+
     accordionHeader.appendChild(accordionButton);
     accordionItem.appendChild(accordionHeader);
     accordionCollapse.appendChild(accordionBody);
@@ -148,12 +159,14 @@ shortcuts.forEach(c => {
     c.items.forEach(e => {
         if ('show' in e && !e.show) {
             return;
-        } 
+        }
 
         const button = document.createElement('button') as HTMLButtonElement;
         button.type = 'button';
-        button.className = 'btn btn-outline-primary';
+        button.className = 'btn btn-outline-primary btn-tree-select';
+        button.setAttribute('data-bs-toggle', 'button');
         button.textContent = e.name;
+
         if ('species' in e && e.species) {
             button.value = e.species;
             button.onclick = () => { setSpecies(button.value); };
@@ -164,6 +177,7 @@ shortcuts.forEach(c => {
             button.onclick = () => { setGenus(button.value); };
         }
 
+        btnTreeSelect.push(button);
         accordionBody.appendChild(button);
         accordionBody.append(' ');
     });
@@ -172,6 +186,7 @@ shortcuts.forEach(c => {
 });
 
 btnSearch.onclick = () => {
+    currentData = [];
     treeSearchAlert.classList.toggle('d-none', true);
     if (opl) {
         map.removeLayer(opl)
@@ -184,10 +199,10 @@ btnSearch.onclick = () => {
     }
     let query = '(';
     if (genus) {
-        query += 'node[natural=tree][genus~"' + genus + '",i]({{bbox}});'
+        query += 'node[natural=tree][genus~"' + genus + '",i]({{bbox}});';
     }
     if (species) {
-        query += 'node[natural=tree][species~"' + species + '",i]({{bbox}});'
+        query += 'node[natural=tree][species~"' + species + '",i]({{bbox}});';
     }
     query += '); out qt;'
     modalTreeSearch.hide();
@@ -198,7 +213,6 @@ btnSearch.onclick = () => {
         minZoom: 13,
         markerIcon: treeIcon,
         onSuccess: function (data: any) {
-            this._data = [];
             for (let i = 0; i < data.elements.length; i++) {
                 let pos;
                 let marker;
@@ -209,7 +223,7 @@ btnSearch.onclick = () => {
                 }
 
                 this._ids[e.id] = true;
-                this._data.push(e);
+                currentData.push(e);
 
                 if (e.type === 'node') {
                     pos = L.latLng(e.lat, e.lon);
@@ -233,9 +247,11 @@ btnSearch.onclick = () => {
 
                 this._markers.addLayer(marker);
             }
-        },
-        afterRequest: function () {
-            currentData = this.getData();
+            let trees: number = currentData.length;
+            let toastTxt: string = trees + " trees found 🌲"
+            toastTreeCount.innerText = toastTxt;
+            console.log(toastTxt);
+            toastLoaded.show();
         }
     }
 
@@ -303,14 +319,14 @@ btnExport.onclick = () => {
     if (radioBackground) {
         background = radioBackground.value;
     }
-    
+
     let color = '#5fc33b';
     const inputColor = document.getElementById("inputColor") as HTMLInputElement;
     if (inputColor) {
         color = inputColor.value;
-    } 
+    }
 
-    const metadataName = [genus, species].filter(Boolean).join(' / ');   
+    const metadataName = [genus, species].filter(Boolean).join(' / ');
     const xmlDoc = document.implementation.createDocument(null, 'gpx');
     const gpxElement = xmlDoc.documentElement;
     gpxElement.setAttribute('version', '1.1');
@@ -375,13 +391,13 @@ btnExport.onclick = () => {
     let serializer = new XMLSerializer();
     let xmlString = serializer.serializeToString(xmlDoc);
 
-    var blob = new Blob([xmlString], {type: "application/gpx+xml;charset=utf-8"});
+    var blob = new Blob([xmlString], { type: "application/gpx+xml;charset=utf-8" });
     let fileName: string = metadataName.replace(/[\/\\:;,?*|<>]/g, '_') + '.gpx';
     saveAs(blob, fileName);
 }
 
 function showModalTreeExport() {
-    if (currentData){
+    if (currentData.length < 0) {
         modalTreeExport.show();
     } else {
         toastNoData.show();
