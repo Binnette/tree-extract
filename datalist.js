@@ -19,7 +19,7 @@ function getDataFromTagInfo(key, count) {
     const urlString = new URL('https://taginfo.openstreetmap.org/api/4/key/values');
     urlString.search = new URLSearchParams(params).toString();
 
-    const outFile = 'data/' + key + '.json';
+    const outFile = 'dist/data/' + key + '.json';
 
     https.get(urlString.href, (res) => {
         let data = '';
