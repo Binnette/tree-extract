@@ -69,6 +69,7 @@ let shortcuts = [
             { name: '🍐 Quince', species: 'Cydonia oblonga' },
             { name: '🍑 Kaki persimmon', species: 'Diospyros kaki' },
             { name: '🍎 Pomegranate', species: 'Punica granatum' },
+            { name: '🟠 Loquat', species: 'Eriobotrya japonica' },
             { name: '🥝 Kiwi', genus: 'Actinidia' },
             { name: '🟣 Fig', species: 'Ficus carica' },
             { name: '🍇 Grapes', genus: 'Vitis' },
@@ -80,16 +81,26 @@ let shortcuts = [
             { name: '🍊 Clementine', species: 'Citrus × clementina', show: false }, // No tree in OSM
             { name: '🍊 Orange', species: 'Citrus × sinensis' },
             { name: '🍋 Lemon', species: 'Citrus × limon' },
+            { name: '🍊 Grapefruit', species: 'Citrus × paradisi', show: false }, // Too few in OSM
+            { name: '🍊 Lime', species: 'Citrus × aurantiifolia', show: false }, // Too few in OSM
+            { name: '🍊 Kumquat', species: 'Citrus japonica', show: false }, // Too few in OSM
+            { name: '🍊 Pomelo', species: 'Citrus maxima', show: false }, // Too few in OSM
         ]
     }, {
         category: 'Tropical',
         items: [
             { name: '🍌 Banana', species: 'Musa acuminata', show: false }, // Too few in OSM
-            { name: '🍍 Pineapple', species: 'Hananas comosus' },
+            { name: '🍍 Pineapple', species: 'Ananas comosus' }, // Hananas comosus?
             { name: '🥭 Mango', species: 'Mangifera indica' },
             { name: '🍈 Papaya', species: 'Carica papaya' },
             { name: '🥥 Coconut', species: 'Cocos nucifera' },
             { name: '🏝️ Date', species: 'Phoenix dactylifera' },
+            { name: '🥭 Jackfruit', species: 'Artocarpus heterophyllus', show: false }, // Too few in OSM
+            { name: '🥭 Breadfruit', species: 'Artocarpus altilis', show: false }, // Too few in OSM
+            { name: '🥭 Durian', species: 'Durio zibethinus', show: false }, // Too few in OSM
+            { name: '🥭 Lychee', species: 'Litchi chinensis', show: false }, // Too few in OSM
+            { name: '🥭 Longan', species: 'Dimocarpus longan', show: false }, // Too few in OSM
+            { name: '🥭 Rambutan', species: 'Nephelium lappaceum', show: false }, // Too few in OSM
         ]
     }, {
         category: 'Berries',
@@ -107,12 +118,17 @@ let shortcuts = [
         items: [
             { name: '🌰 Almonds', species: 'Prunus dulcis' },
             { name: '🌰 Brazil Nuts', species: 'Bertholletia excelsa', show: false }, // Too few in OSM
+            { name: '🌰 Butternuts', species:'Juglans cinerea', show: false }, // Too few in OSM
             { name: '🌰 Cashews', species: 'Anacardium occidentale', show: false }, // Too few in OSM
             { name: '🌰 Chestnuts', species: 'Castanea sativa' },
             { name: '🌰 Hazelnuts', species: 'Corylus avellana' },
+            { name: '🌰 Heartnuts', species:'Juglans ailantifolia', show: false }, // Too few in OSM
+            { name: '🌰 Macadamia Nuts', species: 'Macadamia integrifolia', show: false }, // Too few in OSM
             { name: '🌰 Pecans', species: 'Carya illinoinensis', show: false }, // Too few in OSM
+            { name: '🌰 Pine Nuts', species:'Pinus pinea' },
             { name: '🌰 Macadamia Nuts', species: 'Macadamia integrifolia', show: false }, // Too few in OSM
             { name: '🌰 Pistachios', species: 'Pistacia vera', show: false }, // Too few in OSM
+            { name: '🌰 Walnut', species: 'Juglans regia' }
         ]
     }, {
         category: 'Others',
