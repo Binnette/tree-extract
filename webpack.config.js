@@ -23,4 +23,11 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'js'),
     },
+    devServer: {
+        static: {
+            directory: __dirname,
+        },
+        compress: true,
+        port: 9000,
+    },
 };
