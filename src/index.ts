@@ -4,6 +4,7 @@ import { saveAs } from 'file-saver';
 import 'leaflet.locatecontrol';
 import OverPassLayer from 'leaflet-overpass-layer';
 import L from 'leaflet';
+import { Shorcut, ShortcutCategory } from './types';
 
 // Init map
 let map = new Map('map').setView([46.521, 2.197], 6);
@@ -54,152 +55,74 @@ function setGenus(genus: string) {
     speciesInput.value = '';
 }
 
-let shortcuts = [
-    {
-        category: 'Common',
-        items: [
-            { name: '🍒 Cherry soft', species: 'Prunus avium' },
-            { name: '🍒 Cherry acid', species: 'Prunus cerasus' },
-            { name: '🍒 Cherry plum', species: 'Prunus cerasifera' },
-            { name: '🫐 Plum', species: 'Prunus domestica' },
-            { name: '🍑 Peach', species: 'Prunus persica' },
-            { name: '🍑 Apricot', species: 'Prunus armeniaca' },
-            { name: '🍏 Apple', species: 'Malus domestica' },
-            { name: '🍐 Pear', species: 'Pyrus communis' },
-            { name: '🍐 Quince', species: 'Cydonia oblonga' },
-            { name: '🍑 Kaki persimmon', species: 'Diospyros kaki' },
-            { name: '🍎 Pomegranate', species: 'Punica granatum' },
-            { name: '🟠 Loquat', species: 'Eriobotrya japonica' },
-            { name: '🥝 Kiwi', genus: 'Actinidia' },
-            { name: '🟣 Fig', species: 'Ficus carica' },
-            { name: '🍇 Grapes', genus: 'Vitis' },
-        ]
-    }, {
-        category: 'Citrus',
-        items: [
-            { name: '🍊 Mandarin', species: 'Citrus reticulata', show: false }, // Too few in OSM
-            { name: '🍊 Clementine', species: 'Citrus × clementina', show: false }, // No tree in OSM
-            { name: '🍊 Orange', species: 'Citrus × sinensis' },
-            { name: '🍋 Lemon', species: 'Citrus × limon' },
-            { name: '🍊 Grapefruit', species: 'Citrus × paradisi', show: false }, // Too few in OSM
-            { name: '🍊 Lime', species: 'Citrus × aurantiifolia', show: false }, // Too few in OSM
-            { name: '🍊 Kumquat', species: 'Citrus japonica', show: false }, // Too few in OSM
-            { name: '🍊 Pomelo', species: 'Citrus maxima', show: false }, // Too few in OSM
-        ]
-    }, {
-        category: 'Tropical',
-        items: [
-            { name: '🍌 Banana', species: 'Musa acuminata', show: false }, // Too few in OSM
-            { name: '🍍 Pineapple', species: 'Ananas comosus' }, // Hananas comosus?
-            { name: '🥭 Mango', species: 'Mangifera indica' },
-            { name: '🍈 Papaya', species: 'Carica papaya' },
-            { name: '🥥 Coconut', species: 'Cocos nucifera' },
-            { name: '🏝️ Date', species: 'Phoenix dactylifera' },
-            { name: '🥭 Jackfruit', species: 'Artocarpus heterophyllus', show: false }, // Too few in OSM
-            { name: '🥭 Breadfruit', species: 'Artocarpus altilis', show: false }, // Too few in OSM
-            { name: '🥭 Durian', species: 'Durio zibethinus', show: false }, // Too few in OSM
-            { name: '🥭 Lychee', species: 'Litchi chinensis', show: false }, // Too few in OSM
-            { name: '🥭 Longan', species: 'Dimocarpus longan', show: false }, // Too few in OSM
-            { name: '🥭 Rambutan', species: 'Nephelium lappaceum', show: false }, // Too few in OSM
-        ]
-    }, {
-        category: 'Berries',
-        items: [
-            { name: '⚫️ Elderberry', species: 'Sambucus nigra' },
-            { name: '⚫️ Mulberry', species: 'Morus nigra' },
-            { name: '🔴 Rowanberry', species: 'Sorbus aucuparia' },
-            { name: '🍇 Blackberry', species: 'Rubus fruticosus', show: false }, // Too few in OSM
-            { name: '🔵 Blueberry', species: 'Vaccinium corymbosum', show: false }, // Too few in OSM
-            { name: '🔴 Cranberry', species: 'Vaccinium macrocarpon', show: false }, // Too few in OSM
-            { name: '🔴 Currant', species: 'Ribes rubrum', show: false }, // Too few in OSM
-        ]
-    }, {
-        category: 'Nuts',
-        items: [
-            { name: '🌰 Almonds', species: 'Prunus dulcis' },
-            { name: '🌰 Brazil Nuts', species: 'Bertholletia excelsa', show: false }, // Too few in OSM
-            { name: '🌰 Butternuts', species:'Juglans cinerea', show: false }, // Too few in OSM
-            { name: '🌰 Cashews', species: 'Anacardium occidentale', show: false }, // Too few in OSM
-            { name: '🌰 Chestnuts', species: 'Castanea sativa' },
-            { name: '🌰 Hazelnuts', species: 'Corylus avellana' },
-            { name: '🌰 Heartnuts', species:'Juglans ailantifolia', show: false }, // Too few in OSM
-            { name: '🌰 Macadamia Nuts', species: 'Macadamia integrifolia', show: false }, // Too few in OSM
-            { name: '🌰 Pecans', species: 'Carya illinoinensis', show: false }, // Too few in OSM
-            { name: '🌰 Pine Nuts', species:'Pinus pinea' },
-            { name: '🌰 Macadamia Nuts', species: 'Macadamia integrifolia', show: false }, // Too few in OSM
-            { name: '🌰 Pistachios', species: 'Pistacia vera', show: false }, // Too few in OSM
-            { name: '🌰 Walnut', species: 'Juglans regia' }
-        ]
-    }, {
-        category: 'Others',
-        items: [
-            { name: '🥑 Avocado', species: 'Persea americana' },
-            { name: '🫒 Olive', species: 'Olea europaea' },
-            { name: '💮 Robinia', species: 'Robinia pseudoacacia' },
-        ]
-    }
-];
 
-shortcuts.forEach(c => {
-    const cat = c.category.replace(/[^a-zA-Z0-9]/g, '');
-    const accordionItem = document.createElement('div');
-    accordionItem.className = 'accordion-item';
+function loadShortcuts() {
+    fetch('data/shortcuts.json')
+        .then(response => response.json())
+        .then((shortcuts: ShortcutCategory[]) => {
+            shortcuts.forEach((c: ShortcutCategory) => {
+                const cat = c.category.replace(/[^a-zA-Z0-9]/g, '');
+                const accordionItem = document.createElement('div');
+                accordionItem.className = 'accordion-item';
 
-    const accordionHeader = document.createElement('h2');
-    accordionHeader.className = 'accordion-header';
-    accordionHeader.id = 'heading' + cat;
+                const accordionHeader = document.createElement('h2');
+                accordionHeader.className = 'accordion-header';
+                accordionHeader.id = 'heading' + cat;
 
-    const accordionButton = document.createElement('button');
-    accordionButton.className = 'accordion-button collapsed';
-    accordionButton.type = 'button';
-    accordionButton.setAttribute('data-bs-toggle', 'collapse');
-    accordionButton.setAttribute('data-bs-target', '#collapse' + cat);
-    accordionButton.setAttribute('aria-expanded', 'false');
-    accordionButton.setAttribute('aria-controls', 'collapse' + cat);
-    accordionButton.textContent = c.category;
+                const accordionButton = document.createElement('button');
+                accordionButton.className = 'accordion-button collapsed';
+                accordionButton.type = 'button';
+                accordionButton.setAttribute('data-bs-toggle', 'collapse');
+                accordionButton.setAttribute('data-bs-target', '#collapse' + cat);
+                accordionButton.setAttribute('aria-expanded', 'false');
+                accordionButton.setAttribute('aria-controls', 'collapse' + cat);
+                accordionButton.textContent = c.category;
 
-    const accordionCollapse = document.createElement('div');
-    accordionCollapse.id = 'collapse' + cat;
-    accordionCollapse.className = 'accordion-collapse collapse';
-    accordionCollapse.setAttribute('aria-labelledby', 'heading' + cat);
-    accordionCollapse.setAttribute('data-bs-parent', '#shortcuts');
+                const accordionCollapse = document.createElement('div');
+                accordionCollapse.id = 'collapse' + cat;
+                accordionCollapse.className = 'accordion-collapse collapse';
+                accordionCollapse.setAttribute('aria-labelledby', 'heading' + cat);
+                accordionCollapse.setAttribute('data-bs-parent', '#shortcuts');
 
-    const accordionBody = document.createElement('div');
-    accordionBody.className = 'accordion-body';
+                const accordionBody = document.createElement('div');
+                accordionBody.className = 'accordion-body';
 
-    accordionHeader.appendChild(accordionButton);
-    accordionItem.appendChild(accordionHeader);
-    accordionCollapse.appendChild(accordionBody);
-    accordionItem.appendChild(accordionCollapse);
+                accordionHeader.appendChild(accordionButton);
+                accordionItem.appendChild(accordionHeader);
+                accordionCollapse.appendChild(accordionBody);
+                accordionItem.appendChild(accordionCollapse);
 
-    c.items.forEach(e => {
-        if ('show' in e && !e.show) {
-            return;
-        }
+                c.items.forEach((e: Shorcut) => {
+                    if ('show' in e && !e.show) {
+                        return;
+                    }
 
-        const button = document.createElement('button') as HTMLButtonElement;
-        button.type = 'button';
-        button.className = 'btn btn-outline-primary btn-tree-select';
-        button.setAttribute('data-bs-toggle', 'button');
-        button.textContent = e.name;
+                    const button = document.createElement('button') as HTMLButtonElement;
+                    button.type = 'button';
+                    button.className = 'btn btn-outline-primary btn-tree-select';
+                    button.setAttribute('data-bs-toggle', 'button');
+                    button.textContent = e.name;
 
-        if ('species' in e && e.species) {
-            button.value = e.species;
-            button.onclick = () => { setSpecies(button.value); };
-        }
+                    if ('species' in e && e.species) {
+                        button.value = e.species;
+                        button.onclick = () => { setSpecies(button.value); };
+                    }
 
-        if ('genus' in e && e.genus) {
-            button.value = e.genus;
-            button.onclick = () => { setGenus(button.value); };
-        }
+                    if ('genus' in e && e.genus) {
+                        button.value = e.genus;
+                        button.onclick = () => { setGenus(button.value); };
+                    }
 
-        btnTreeSelect.push(button);
-        accordionBody.appendChild(button);
-        accordionBody.append(' ');
-    });
+                    btnTreeSelect.push(button);
+                    accordionBody.appendChild(button);
+                    accordionBody.append(' ');
+                });
 
-    shortcutsDiv.appendChild(accordionItem);
-});
+                shortcutsDiv.appendChild(accordionItem);
+            });
+        });
+}
+loadShortcuts();
 
 btnSearch.onclick = () => {
     currentData = [];
@@ -227,6 +150,11 @@ btnSearch.onclick = () => {
     let oplOptions: any = {
         query: query,
         minZoom: 13,
+        minZoomIndicatorOptions: {
+            position: 'topright',
+            minZoomMessageNoLayer: 'No layer assigned',
+            minZoomMessage: 'Zoom level: CURRENTZOOM - Data at level: MINZOOMLEVEL'
+        },
         markerIcon: treeIcon,
         onSuccess: function (data: any) {
             for (let i = 0; i < data.elements.length; i++) {
