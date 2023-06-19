@@ -79,7 +79,8 @@
         "items": [
             { "name": "🥑 Avocado", "species": "Persea americana" },
             { "name": "🫒 Olive", "species": "Olea europaea" },
-            { "name": "💮 Robinia", "species": "Robinia pseudoacacia" }
+            { "name": "💮 Robinia", "species": "Robinia pseudoacacia" },
+            { "name": "🌸 Wisteria", "genus": "Wisteria" }
         ]
     }
 ]
