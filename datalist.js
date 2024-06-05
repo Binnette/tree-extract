@@ -34,7 +34,8 @@ function getDataFromTagInfo(key, count) {
                 .map(item => item.value)
                 .filter(value => value !== 'unknown')
                 .map(value => value.charAt(0).toUpperCase() + value.slice(1).toLowerCase())
-                .filter((value, index, self) => self.indexOf(value) === index);
+                .filter((value, index, self) => self.indexOf(value) === index)
+                .sort();
 
             fs.writeFile(outFile, JSON.stringify(values, null, 2), (err) => {
                 if (err) {
