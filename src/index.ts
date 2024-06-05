@@ -178,10 +178,11 @@ btnSearch.onclick = () => {
                 if (this.options.markerIcon) {
                     marker = L.marker(pos, { icon: this.options.markerIcon });
                 } else {
-                    marker = L.circle(pos, 20, {
+                    marker = L.circle(pos, {
                         stroke: false,
                         fillColor: '#E54041',
-                        fillOpacity: 0.9
+                        fillOpacity: 0.9,
+                        radius: 20
                     });
                 }
 

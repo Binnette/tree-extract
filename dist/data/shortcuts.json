@@ -2,85 +2,85 @@
     {
         "category": "Common",
         "items": [
-            { "name": "🍒 Cherry soft", "species": "Prunus avium" },
-            { "name": "🍒 Cherry acid", "species": "Prunus cerasus" },
-            { "name": "🍒 Cherry plum", "species": "Prunus cerasifera" },
-            { "name": "🫐 Plum", "species": "Prunus domestica" },
-            { "name": "🍑 Peach", "species": "Prunus persica" },
-            { "name": "🍑 Apricot", "species": "Prunus armeniaca" },
-            { "name": "🍏 Apple", "species": "Malus domestica" },
-            { "name": "🍐 Pear", "species": "Pyrus communis" },
-            { "name": "🍐 Quince", "species": "Cydonia oblonga" },
-            { "name": "🍑 Kaki persimmon", "species": "Diospyros kaki" },
-            { "name": "🍎 Pomegranate", "species": "Punica granatum" },
-            { "name": "🟠 Loquat", "species": "Eriobotrya japonica" },
-            { "name": "🥝 Kiwi", "genus": "Actinidia" },
-            { "name": "🟣 Fig", "species": "Ficus carica" },
-            { "name": "🍇 Grapes", "genus": "Vitis" }
+            { "name": "🍒 Cherry soft", "species": "Prunus avium", "start": 5, "end": 6 },
+            { "name": "🍒 Cherry acid", "species": "Prunus cerasus", "start": 5, "end": 6 },
+            { "name": "🍒 Cherry plum", "species": "Prunus cerasifera", "start": 7, "end": 8 },
+            { "name": "🫐 Plum", "species": "Prunus domestica", "start": 7, "end": 9 },
+            { "name": "🍑 Peach", "species": "Prunus persica", "start": 6, "end": 9 },
+            { "name": "🍑 Apricot", "species": "Prunus armeniaca", "start": 6, "end": 7 },
+            { "name": "🍏 Apple", "species": "Malus domestica", "start": 8, "end": 11 },
+            { "name": "🍐 Pear", "species": "Pyrus communis", "start": 8, "end": 10 },
+            { "name": "🍐 Quince", "species": "Cydonia oblonga", "start": 10, "end": 11 },
+            { "name": "🍑 Kaki persimmon", "species": "Diospyros kaki", "start": 10, "end": 12 },
+            { "name": "🍎 Pomegranate", "species": "Punica granatum", "start": 10, "end": 11 },
+            { "name": "🟠 Loquat", "species": "Eriobotrya japonica", "start": 4, "end": 5 },
+            { "name": "🥝 Kiwi", "genus": "Actinidia", "start": 11, "end": 5 },
+            { "name": "🟣 Fig", "species": "Ficus carica", "start": 7, "end": 9 },
+            { "name": "🍇 Grapes", "genus": "Vitis", "start": 8, "end": 10 }
         ]
     }, {
         "category": "Citrus",
         "items": [
-            { "name": "🍊 Mandarin", "species": "Citrus reticulata", "show": false, "comment": "Too few in OSM" },
-            { "name": "🍊 Clementine", "species": "Citrus × clementina", "show": false, "comment": "No tree in OSM" },
-            { "name": "🍊 Orange", "species": "Citrus × sinensis" },
-            { "name": "🍋 Lemon", "species": "Citrus × limon" },
-            { "name": "🍊 Grapefruit", "species": "Citrus × paradisi", "show": false, "comment": "Too few in OSM" },
-            { "name": "🍊 Lime", "species": "Citrus × aurantiifolia", "show": false, "comment": "Too few in OSM" },
-            { "name": "🍊 Kumquat", "species": "Citrus japonica", "show": false, "comment": "Too few in OSM" },
-            { "name": "🍊 Pomelo", "species": "Citrus maxima", "show": false, "comment": "Too few in OSM" }
+            { "name": "🍊 Mandarin", "species": "Citrus reticulata", "start": 11, "end": 1, "show": false, "comment": "Too few in OSM" },
+            { "name": "🍊 Clementine", "species": "Citrus × clementina", "start": 11, "end": 1, "show": false, "comment": "No tree in OSM" },
+            { "name": "🍊 Orange", "species": "Citrus × sinensis", "start": 11, "end": 4 },
+            { "name": "🍋 Lemon", "species": "Citrus × limon", "start": 11, "end": 4 },
+            { "name": "🍊 Grapefruit", "species": "Citrus × paradisi", "start": 11, "end": 4, "show": false, "comment": "Too few in OSM" },
+            { "name": "🍊 Lime", "species": "Citrus × aurantiifolia", "start": 11, "end": 4, "show": false, "comment": "Too few in OSM" },
+            { "name": "🍊 Kumquat", "species": "Citrus japonica", "start": 11, "end": 1, "show": false, "comment": "Too few in OSM" },
+            { "name": "🍊 Pomelo", "species": "Citrus maxima", "start": 11, "end": 4, "show": false, "comment": "Too few in OSM" }
         ]
     }, {
         "category": "Tropical",
         "items": [
-            { "name": "🍌 Banana", "species": "Musa acuminata", "show": false, "comment": "Too few in OSM" },
-            { "name": "🍍 Pineapple", "species": "Ananas comosus", "comment": "Hananas comosus?" },
-            { "name": "🥭 Mango", "species": "Mangifera indica" },
-            { "name": "🍈 Papaya", "species": "Carica papaya" },
-            { "name": "🥥 Coconut", "species": "Cocos nucifera" },
-            { "name": "🏝️ Date", "species": "Phoenix dactylifera" },
-            { "name": "🥭 Jackfruit", "species": "Artocarpus heterophyllus", "show": false, "comment": "Too few in OSM" },
-            { "name": "🥭 Breadfruit", "species": "Artocarpus altilis", "show": false, "comment": "Too few in OSM" },
-            { "name": "🥭 Durian", "species": "Durio zibethinus", "show": false, "comment": "Too few in OSM" },
-            { "name": "🥭 Lychee", "species": "Litchi chinensis", "show": false, "comment": "Too few in OSM" },
-            { "name": "🥭 Longan", "species": "Dimocarpus longan", "show": false, "comment": "Too few in OSM" },
-            { "name": "🥭 Rambutan", "species": "Nephelium lappaceum", "show": false, "comment": "Too few in OSM" }
+            { "name": "🍌 Banana", "species": "Musa acuminata", "start": 1, "end": 12, "show": false, "comment": "Too few in OSM" },
+            { "name": "🍍 Pineapple", "species": "Ananas comosus", "start": 1, "end": 12, "comment": "Hananas comosus?" },
+            { "name": "🥭 Mango", "species": "Mangifera indica", "start": 5, "end": 9 },
+            { "name": "🍈 Papaya", "species": "Carica papaya", "start": 6, "end": 9 },
+            { "name": "🥥 Coconut", "species": "Cocos nucifera", "start": 1, "end": 12 },
+            { "name": "🏝️ Date", "species": "Phoenix dactylifera", "start": 11, "end": 12 },
+            { "name": "🥭 Jackfruit", "species": "Artocarpus heterophyllus", "start": 1, "end": 12, "show": false, "comment": "Too few in OSM" },
+            { "name": "🥭 Breadfruit", "species": "Artocarpus altilis", "start": 1, "end": 12, "show": false, "comment": "Too few in OSM" },
+            { "name": "🥭 Durian", "species": "Durio zibethinus", "start": 1, "end": 12, "show": false, "comment": "Too few in OSM" },
+            { "name": "🥭 Lychee", "species": "Litchi chinensis", "start": 5, "end": 6, "show": false, "comment": "Too few in OSM" },
+            { "name": "🥭 Longan", "species": "Dimocarpus longan", "start": 5, "end": 6, "show": false, "comment": "Too few in OSM" },
+            { "name": "🥭 Rambutan", "species": "Nephelium lappaceum", "start": 5, "end": 6, "show": false, "comment": "Too few in OSM" }
         ]
     }, {
         "category": "Berries",
         "items": [
-            { "name": "⚫️ Elderberry", "species": "Sambucus nigra" },
-            { "name": "⚫️ Mulberry", "species": "Morus nigra" },
-            { "name": "🔴 Rowanberry", "species": "Sorbus aucuparia" },
-            { "name": "🍇 Blackberry", "species": "Rubus fruticosus", "show": false, "comment": "Too few in OSM" },
-            { "name": "🔵 Blueberry", "species": "Vaccinium corymbosum", "show": false, "comment": "Too few in OSM" },
-            { "name": "🔴 Cranberry", "species": "Vaccinium macrocarpon", "show": false, "comment": "Too few in OSM" },
-            { "name": "🔴 Currant", "species": "Ribes rubrum", "show": false, "comment": "Too few in OSM" }
+            { "name": "⚫️ Elderberry", "species": "Sambucus nigra", "start": 7, "end": 9 },
+            { "name": "⚫️ Mulberry", "species": "Morus nigra", "start": 7, "end": 9 },
+            { "name": "🔴 Rowanberry", "species": "Sorbus aucuparia", "start": 9, "end": 1 },
+            { "name": "🍇 Blackberry", "species": "Rubus fruticosus", "start": 7, "end": 10, "show": false, "comment": "Too few in OSM" },
+            { "name": "🔵 Blueberry", "species": "Vaccinium corymbosum", "start": 6, "end": 9, "show": false, "comment": "Too few in OSM" },
+            { "name": "🔴 Cranberry", "species": "Vaccinium macrocarpon", "start": 10, "end": 11, "show": false, "comment": "Too few in OSM" },
+            { "name": "🔴 Currant", "species": "Ribes rubrum", "start": 6, "end": 8, "show": false, "comment": "Too few in OSM" }
         ]
     }, {
         "category": "Nuts",
         "items": [
-            { "name": "🌰 Almonds", "species": "Prunus dulcis" },
-            { "name": "🌰 Brazil Nuts", "species": "Bertholletia excelsa", "show": false, "comment": "Too few in OSM" },
-            { "name": "🌰 Butternuts", "species":"Juglans cinerea", "show": false, "comment": "Too few in OSM" },
-            { "name": "🌰 Cashews", "species": "Anacardium occidentale", "show": false, "comment": "Too few in OSM" },
-            { "name": "🌰 Chestnuts", "species": "Castanea sativa" },
-            { "name": "🌰 Hazelnuts", "species": "Corylus avellana" },
-            { "name": "🌰 Heartnuts", "species":"Juglans ailantifolia", "show": false, "comment": "Too few in OSM" },
-            { "name": "🌰 Macadamia Nuts", "species": "Macadamia integrifolia", "show": false, "comment": "Too few in OSM" },
-            { "name": "🌰 Pecans", "species": "Carya illinoinensis", "show": false, "comment": "Too few in OSM" },
-            { "name": "🌰 Pine Nuts", "species":"Pinus pinea" },
-            { "name": "🌰 Macadamia Nuts", "species": "Macadamia integrifolia", "show": false, "comment": "Too few in OSM" },
-            { "name": "🌰 Pistachios", "species": "Pistacia vera", "show": false, "comment": "Too few in OSM" },
-            { "name": "🌰 Walnut", "species": "Juglans regia" }
+            { "name": "🌰 Almonds", "species": "Prunus dulcis", "start": 6, "end": 7 },
+            { "name": "🌰 Brazil Nuts", "species": "Bertholletia excelsa", "start": 12, "end": 1, "show": false, "comment": "Too few in OSM" },
+            { "name": "🌰 Butternuts", "species":"Juglans cinerea", "start": 9, "end": 11, "show": false, "comment": "Too few in OSM" },
+            { "name": "🌰 Cashews", "species": "Anacardium occidentale", "start": 9, "end": 11, "show": false, "comment": "Too few in OSM" },
+            { "name": "🌰 Chestnuts", "species": "Castanea sativa", "start": 9, "end": 11 },
+            { "name": "🌰 Hazelnuts", "species": "Corylus avellana", "start": 8, "end": 11 },
+            { "name": "🌰 Heartnuts", "species":"Juglans ailantifolia", "start": 9, "end": 10, "show": false, "comment": "Too few in OSM" },
+            { "name": "🌰 Macadamia Nuts", "species": "Macadamia integrifolia", "start": 12, "end": 4, "show": false, "comment": "Too few in OSM" },
+            { "name": "🌰 Pecans", "species": "Carya illinoinensis", "start": 9, "end": 11, "show": false, "comment": "Too few in OSM" },
+            { "name": "🌰 Pine Nuts", "species":"Pinus pinea", "start": 9, "end": 10 },
+            { "name": "🌰 Pistachios", "species": "Pistacia vera", "start": 9, "end": 11, "show": false, "comment": "Too few in OSM" },
+            { "name": "🌰 Walnut", "species": "Juglans regia", "start": 9, "end": 10 }
         ]
     }, {
         "category": "Others",
         "items": [
-            { "name": "🥑 Avocado", "species": "Persea americana" },
-            { "name": "🫒 Olive", "species": "Olea europaea" },
-            { "name": "💮 Robinia", "species": "Robinia pseudoacacia" },
-            { "name": "🌸 Wisteria", "genus": "Wisteria" }
+            { "name": "🥑 Avocado", "species": "Persea americana", "start": 9, "end": 12 },
+            { "name": "🫒 Olive", "species": "Olea europaea", "start": 9, "end": 2 },
+            { "name": "💮 Robinia", "species": "Robinia pseudoacacia", "start": 5, "end": 6 },
+            { "name": "💮 Black Elder", "species": "Sambucus nigra", "start": 5, "end": 6 },
+            { "name": "🌸 Wisteria", "genus": "Wisteria", "start": 4, "end": 6 }
         ]
     }
 ]
