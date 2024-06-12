@@ -30,7 +30,7 @@ Steps:
 
 ## Deploy on GitHub-Pages
 
-1. `npm run predeploy`
+1. `npm i -g gh-pages`
 1. `npm run deploy`
 
 ## Update datalist
