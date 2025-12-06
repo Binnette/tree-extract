@@ -1,4 +1,4 @@
-export type Shorcut = {
+export type Shortcut = {
     name: string;
     genus: string;
     species: string;
@@ -8,5 +8,5 @@ export type Shorcut = {
 
 export type ShortcutCategory = {
     category: string;
-    items: Shorcut[];
+    items: Shortcut[];
 };

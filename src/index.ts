@@ -1,10 +1,16 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-overpass-layer/dist/OverPassLayer.css';
+import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
+import './styles.css';
+
 import { Modal, Toast, Button } from 'bootstrap';
 import { Map, Layer, TileLayer, Control, Point, Icon, DomUtil } from 'leaflet';
 import { saveAs } from 'file-saver';
-import 'leaflet.locatecontrol';
+import { LocateControl } from "leaflet.locatecontrol";
 import OverPassLayer from 'leaflet-overpass-layer';
 import L from 'leaflet';
-import { Shorcut, ShortcutCategory } from './types';
+import { Shortcut, ShortcutCategory } from './types';
 
 // Init map
 let map = new Map('map').setView([46.521, 2.197], 6);
@@ -12,8 +18,8 @@ new TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
-// Start geolocalisation
-let lc: Control.Locate = new Control.Locate({
+// Start geolocation
+let lc: LocateControl = new LocateControl({
     initialZoomLevel: 13
 }).addTo(map);
 lc.start();
@@ -92,7 +98,7 @@ function loadShortcuts() {
                 accordionCollapse.appendChild(accordionBody);
                 accordionItem.appendChild(accordionCollapse);
 
-                c.items.forEach((e: Shorcut) => {
+                c.items.forEach((e: Shortcut) => {
                     if ('show' in e && !e.show) {
                         return;
                     }

@@ -1,7 +1,7 @@
-/*  This script get top 100 genus and top 999 species from Osm TagInfo
-    And save the results in genus.json and species.json in data folder
-    Those files are binded to inputs genus/species in the web app,
-    so the user can have autocompletion when typing tree genus/species.
+/*  This script fetches the top 100 genus and top 999 species from Osm TagInfo,
+    saves them in genus.json and species.json in the data folder.
+    Those files are bound to inputs genus/species in the web app,
+    so users can get autocompletion when typing tree genus/species.
 */
 const https = require('https');
 const fs = require('fs');

@@ -26,7 +26,7 @@ Steps:
 1. `cd tree-extract`
 1. `npm i`
 1. `npm run start`
-1. Open http://localhost:9000/
+1. Open http://localhost:9090/
 
 ## Deploy on GitHub-Pages
 
@@ -36,7 +36,7 @@ Steps:
 ## Update datalist
 
 Run `npm run datalist` to update the datalist.
-These datalists are used for autocompletion when typing in the genus and species inputs.
+These data are used for autocompletion when typing in the genus and species inputs.
 
 ## License
 
